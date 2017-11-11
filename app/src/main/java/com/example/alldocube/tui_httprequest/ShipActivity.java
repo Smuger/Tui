@@ -1,5 +1,7 @@
 package com.example.alldocube.tui_httprequest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,9 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -25,11 +29,14 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class ShipActivity extends AppCompatActivity {
+    Context x = this;
     JSONArray ships= null;
     JSONObject jsonObject=null;
     JSONObject shiphelper= null;
     JSONObject ship = null;
+    public static int selectedid=0;
     String shipname = null;
+    int shipid = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,9 +86,23 @@ public class ShipActivity extends AppCompatActivity {
             }
 
         });*/
+        Button mButton2 = (Button) findViewById(R.id.button);
+        mButton2.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                if(selectedid!=0)
+                changeActivity();
+            }
+            private void changeActivity(){
+
+                Intent intent = new Intent( x, CruiseActivity.class );
+                startActivity(intent);
+
+            }
+        });
     }
 
-    public void addRadioButtons(int number,JSONObject ships) {
+    public void addRadioButtons(int number, final JSONObject ships) {
 
 
         for (int row = 0; row < 1; row++) {
@@ -101,7 +122,26 @@ public class ShipActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 RadioButton rdbtn = new RadioButton(this);
-                rdbtn.setId((row * 2) + i);
+                try {
+                    shipid=Integer.valueOf((String)ship.get("ID"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                rdbtn.setId(shipid);
+                rdbtn.setOnClickListener(new RadioButton.OnClickListener( ) {
+                    @Override
+                public void onClick(View view) {
+                        RadioButton s=(RadioButton)view;
+                        selectedid=s.getId();
+                        Log.d("est",s.getId()+"");
+                        // Is the button now checked?
+                    }
+
+                        // Check which radio button was clicked
+
+
+
+                });
                 try {
                     shipname=(String)ship.get("NAME");
                 } catch (JSONException e) {
@@ -114,5 +154,10 @@ public class ShipActivity extends AppCompatActivity {
         }
 
 
+
     }
+
+
+
+
 }
