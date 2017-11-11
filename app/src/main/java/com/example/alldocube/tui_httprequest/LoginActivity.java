@@ -3,6 +3,8 @@ package com.example.alldocube.tui_httprequest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -64,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Id to identity READ_CONTACTS permission request.
      */
+    Context x = this;
     private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
@@ -83,7 +86,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    JSONObject user= null;
+    boolean islogin = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,10 +102,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
 
                     try {
-                        attemptLogin();
+                        user= attemptLogin();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -116,10 +121,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 try {
-                    attemptLogin();
-                }catch (Exception e) {
+                    user= attemptLogin();
+                }
+                catch (Exception e) {
                     e.printStackTrace();
                 }
+
+               try {
+                  int error = (int)user.getJSONObject("data").get("error");
+                  if(error==0)
+                      islogin=true;
+                 Log.d("asda",error+"d");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (islogin)
+                changeActivity();
+
+            }
+            private void changeActivity(){
+
+                Intent intent = new Intent( x, ShipActivity.class );
+                startActivity(intent);
+
             }
         });
 
@@ -176,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() throws IOException, JSONException {
+    private JSONObject attemptLogin() throws IOException, JSONException {
 
 
         // Reset errors.
@@ -212,7 +236,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         JSONObject jsonObject = new JSONObject(result);
         Log.d("test",result);
         /* tutaj sprawdzamy zawartosc json czy zalogowalo czy nie*/
-
+        return jsonObject;
     }
 
     private boolean isEmailValid(String email) {
