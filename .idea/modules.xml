@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Tui_HTTPREQUEST.iml" filepath="$PROJECT_DIR$/Tui_HTTPREQUEST.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tui.iml" filepath="$PROJECT_DIR$/Tui.iml" />
+      <module fileurl="file://C:\Users\user\AndroidStudioProjects\Tui\Tui_HTTPREQUEST.iml" filepath="C:\Users\user\AndroidStudioProjects\Tui\Tui_HTTPREQUEST.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

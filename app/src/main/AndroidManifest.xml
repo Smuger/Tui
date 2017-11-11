@@ -27,7 +27,11 @@
         <activity
             android:name=".ShipActivity"
             android:label="@string/title_activity_ship"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegActivity"
+            android:label="@string/title_activity_reg"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
