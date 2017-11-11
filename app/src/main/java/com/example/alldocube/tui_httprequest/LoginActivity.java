@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    JSONObject user= null;
+    public static JSONObject user= null;
     boolean islogin = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
