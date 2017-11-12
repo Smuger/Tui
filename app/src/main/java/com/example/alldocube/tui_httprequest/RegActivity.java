@@ -30,6 +30,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -124,13 +125,24 @@ public void onClick(View view) {
     String pass2=mRePasswordView.getText().toString();
     Log.d("asd",(pass1.equals( pass2))+"");
         if( pass1.equals( pass2)){
-            Log.d("test","chuj działa");
+            if(mPasswordView.length() == 0 || mRePasswordView.length() == 0){
+                Toast.makeText(getApplicationContext(), "Enter both passwords!.",
+                        Toast.LENGTH_SHORT).show();
+            } else if(mEmailView.length() == 0){
+                Toast.makeText(getApplicationContext(), "Enter valid email.",
+                        Toast.LENGTH_SHORT).show();
+            } else {
                 try {
                         attemptReg();
+                    Toast.makeText(x, "Registered successfully.",
+                            Toast.LENGTH_SHORT).show();
                 }catch (Exception e) {
                         e.printStackTrace();
                 }
+            }
         }else{
+            Toast.makeText(getApplicationContext(), "Passwords doesn't match.",
+                    Toast.LENGTH_SHORT).show();
             Log.d("test","a chuj jednak nie działa");
         }
         }

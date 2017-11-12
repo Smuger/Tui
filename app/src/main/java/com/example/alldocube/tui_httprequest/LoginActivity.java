@@ -30,6 +30,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -127,12 +128,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                   int error = (int)user.getJSONObject("data").get("error");
                   if(error==0)
                       islogin=true;
+                  if(mEmailView.length() == 0 || mPasswordView.length() == 0){
+                   Toast.makeText(getApplicationContext(), "Enter email and password.",
+                           Toast.LENGTH_SHORT).show();
+                  } else{
+                       if (islogin)
+                           changeActivity();
+                   }
                  Log.d("asda",error+"d");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if (islogin)
-                changeActivity();
+
 
             }
             private void changeActivity(){
