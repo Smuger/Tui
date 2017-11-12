@@ -34,7 +34,7 @@ public class ShipActivity extends AppCompatActivity {
     JSONObject jsonObject=null;
     JSONObject shiphelper= null;
     JSONObject ship = null;
-    public static int selectedid=0;
+    public static int selectedid=1;
     String shipname = null;
     int shipid = 0;
     Context x = this;
