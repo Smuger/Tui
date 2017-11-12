@@ -1,5 +1,6 @@
 package com.example.alldocube.tui_httprequest;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,9 +44,11 @@ public class ShipActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ship);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Log.d("asd","Asdasd+"+LoginActivity.user);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+        TextView title = (TextView) findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
+        title.setText("Choose Ship");
+
 
         try{
 
@@ -63,10 +66,10 @@ public class ShipActivity extends AppCompatActivity {
         InputStream in = new BufferedInputStream(conn.getInputStream());
         String result = IOUtils.toString(in, "UTF-8");
          jsonObject = new JSONObject(result);
-        Log.d("asd",""+jsonObject);
 
 
-        Log.d("test",ships+"asd");
+
+
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +119,7 @@ public class ShipActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.d("asd","asd1"+shiphelper);
+
             for (int i = 0; i < number; i++) {
                 try {
                      ship = (JSONObject) shiphelper.get("a"+i);
@@ -135,7 +138,7 @@ public class ShipActivity extends AppCompatActivity {
                 public void onClick(View view) {
                         RadioButton s=(RadioButton)view;
                         selectedid=s.getId();
-                        Log.d("est",s.getId()+"");
+
                         // Is the button now checked?
                     }
 

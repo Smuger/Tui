@@ -3,6 +3,8 @@ package com.example.alldocube.tui_httprequest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -51,6 +53,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+    final Activity activity = this;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -79,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     boolean islogin = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -87,7 +91,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         TextView reg = (TextView) findViewById(R.id.reg);
         populateAutoComplete();
-
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+        TextView title=(TextView)findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
+        title.setText("Login");
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -127,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                   int error = (int)user.getJSONObject("data").get("error");
                   if(error==0)
                       islogin=true;
-                 Log.d("asda",error+"d");
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -234,7 +241,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         InputStream in = new BufferedInputStream(conn.getInputStream());
         String result = IOUtils.toString(in, "UTF-8");
         JSONObject jsonObject = new JSONObject(result);
-        Log.d("test",result);
+
         /* tutaj sprawdzamy zawartosc json czy zalogowalo czy nie*/
         return jsonObject;
     }

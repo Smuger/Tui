@@ -1,5 +1,6 @@
 package com.example.alldocube.tui_httprequest;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
@@ -26,7 +28,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class CruiseActivity extends AppCompatActivity {
-    EditText editText = null;
+    public static EditText editText = null;
     ArrayList<Object> list = null;
     public static int selectedid = 1;
     Context x = this;
@@ -35,38 +37,14 @@ public class CruiseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cruise);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+        TextView title = (TextView) findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
+        title.setText("Trip Choosing");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Log.d("asd", "" + ShipActivity.selectedid);
-        try {
 
-            String urlParameters = "ID=" + ShipActivity.selectedid;
 
-            byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-            int postDataLength = postData.length;
-            String request = "https://venuscallipyge.nexttry.pl/wp-json/vcapi/getcruise";
-            URL url = new URL(request);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
-            conn.setInstanceFollowRedirects(false);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestProperty("charset", "utf-8");
-            conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
-            conn.setUseCaches(false);
-            try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
-                wr.write(postData);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            String result = IOUtils.toString(in, "UTF-8");
-            JSONObject jsonObject = new JSONObject(result);
-            Log.d("asd", "" + result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         Button mButton2 = (Button) findViewById(R.id.button9);
         editText = (EditText) findViewById(R.id.editText);
         mButton2.setOnClickListener(new Button.OnClickListener() {
