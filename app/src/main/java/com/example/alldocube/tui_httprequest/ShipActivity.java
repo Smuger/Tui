@@ -29,7 +29,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class ShipActivity extends AppCompatActivity {
-    Context x = this;
+
     JSONArray ships= null;
     JSONObject jsonObject=null;
     JSONObject shiphelper= null;
@@ -37,10 +37,12 @@ public class ShipActivity extends AppCompatActivity {
     public static int selectedid=0;
     String shipname = null;
     int shipid = 0;
+    Context x = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ship);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Log.d("asd","Asdasd+"+LoginActivity.user);
@@ -95,8 +97,8 @@ public class ShipActivity extends AppCompatActivity {
             }
             private void changeActivity(){
 
-                Intent intent = new Intent( x, CruiseActivity.class );
-                startActivity(intent);
+                Intent intent4 = new Intent( x, CruiseActivity.class );
+                startActivity(intent4);
 
             }
         });

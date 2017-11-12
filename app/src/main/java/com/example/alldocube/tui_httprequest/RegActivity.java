@@ -118,13 +118,20 @@ public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
 public void onClick(View view) {
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+        Log.d("asd",mPasswordView.getText().toString());
+        String pass1=mPasswordView.getText().toString();
         mRePasswordView = (EditText) findViewById(R.id.repassword);
-        if(mPasswordView == mRePasswordView){
+    String pass2=mRePasswordView.getText().toString();
+    Log.d("asd",(pass1.equals( pass2))+"");
+        if( pass1.equals( pass2)){
+            Log.d("test","chuj działa");
                 try {
                         attemptReg();
                 }catch (Exception e) {
                         e.printStackTrace();
                 }
+        }else{
+            Log.d("test","a chuj jednak nie działa");
         }
         }
         });

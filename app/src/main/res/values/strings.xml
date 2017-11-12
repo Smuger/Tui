@@ -4,7 +4,8 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="find_your_ship">Find your ship:</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="find_your_cruise">Find your cruise:</string>
+    <string name="prompt_password">Password</string>
     <string name="button_log_in">Log in</string>
     <string name="action_log_in">Login page</string>
     <string name="action_register">Registration page</string>
