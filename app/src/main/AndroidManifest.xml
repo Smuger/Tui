@@ -25,7 +25,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShipActivity"
+        android:name=".ShipActivity"
+        android:label="@string/title_activity_ship"
+        android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CruiseActivity"
             android:label="@string/title_activity_ship"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
