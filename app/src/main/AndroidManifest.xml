@@ -25,9 +25,9 @@
             </intent-filter>
         </activity>
         <activity
-        android:name=".ShipActivity"
-        android:label="@string/title_activity_ship"
-        android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".ShipActivity"
+            android:label="@string/title_activity_ship"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CruiseActivity"
             android:label="@string/title_activity_ship"
@@ -35,7 +35,11 @@
         <activity
             android:name=".RegActivity"
             android:label="@string/title_activity_reg"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HarborActivity"
+            android:label="@string/title_activity_harbor"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

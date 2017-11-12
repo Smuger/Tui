@@ -21,4 +21,5 @@
     </string>
     <string name="title_activity_ship">ShipActivity</string>
     <string name="title_activity_reg">Register</string>
+    <string name="title_activity_harbor">HarborActivity</string>
 </resources>
