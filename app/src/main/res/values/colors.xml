@@ -6,5 +6,7 @@
     <color name="odd">#CED6E3</color>
     <color name="notodd">#DFE2E7</color>
     <color name="buttons">#FCEBBF</color>
+    <color name="jebanyzolyt">#ffae00</color>
+    <color name="black_overlay">#66000000</color>
 
 </resources>

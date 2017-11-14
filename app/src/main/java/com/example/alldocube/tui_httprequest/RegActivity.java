@@ -3,7 +3,6 @@ package com.example.alldocube.tui_httprequest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,6 +30,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -47,8 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
-
-public class RegActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class RegActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>{
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -77,6 +76,8 @@ public class RegActivity extends AppCompatActivity implements LoaderCallbacks<Cu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
 
 
         super.onCreate(savedInstanceState);
@@ -113,31 +114,46 @@ public class RegActivity extends AppCompatActivity implements LoaderCallbacks<Cu
         });
 
         Button mEmailRegButton = (Button) findViewById(R.id.email_reg_button);
+
         mEmailRegButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
                 mPasswordView = (EditText) findViewById(R.id.password);
-
-                String pass1 = mPasswordView.getText().toString();
+                Log.d("asd",mPasswordView.getText().toString());
+                String pass1=mPasswordView.getText().toString();
                 mRePasswordView = (EditText) findViewById(R.id.repassword);
-                String pass2 = mRePasswordView.getText().toString();
-                getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-                getSupportActionBar().setCustomView(R.layout.actionbar);
-                TextView title = (TextView) findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
-                title.setText("Register");
-                if (pass1.equals(pass2)) {
+                String pass2=mRePasswordView.getText().toString();
+                Log.d("asd",(pass1.equals( pass2))+"");
+                if( pass1.equals( pass2)){
+                    if(mPasswordView.length() == 0 || mRePasswordView.length() == 0){
+                        Toast.makeText(getApplicationContext(), "Enter both passwords!.",
+                                Toast.LENGTH_SHORT).show();
+                    } else if(mEmailView.length() == 0){
+                        Toast.makeText(getApplicationContext(), "Enter valid email.",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            attemptReg();
+                            Toast.makeText(x, "Registered successfully.",
+                                    Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(x, LoginActivity.class);
+                            startActivity(i);
 
-                    try {
-                        attemptReg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        }catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                } else {
-
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Passwords doesn't match.",
+                            Toast.LENGTH_SHORT).show();
+                    Log.d("test","a chuj jednak nie działa");
                 }
             }
         });
+
+
 
 
         mLoginFormView = findViewById(R.id.login_form);
@@ -204,29 +220,30 @@ public class RegActivity extends AppCompatActivity implements LoaderCallbacks<Cu
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        String urlParameters = "username=" + email + "&password=" + password;
-        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-        int postDataLength = postData.length;
-        String request = "https://venuscallipyge.nexttry.pl/wp-json/vcapi/register";
-        URL url = new URL(request);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setDoOutput(true);
-        conn.setInstanceFollowRedirects(false);
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.setRequestProperty("charset", "utf-8");
-        conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
-        conn.setUseCaches(false);
-        try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
-            wr.write(postData);
+        String urlParameters  = "username="+email+"&password="+password;
+        byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        int    postDataLength = postData.length;
+        String request        = "https://venuscallipyge.nexttry.pl/wp-json/vcapi/register";
+        URL    url            = new URL( request );
+        HttpURLConnection conn= (HttpURLConnection) url.openConnection();
+        conn.setDoOutput( true );
+        conn.setInstanceFollowRedirects( false );
+        conn.setRequestMethod( "POST" );
+        conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty( "charset", "utf-8");
+        conn.setRequestProperty( "Content-Length", Integer.toString( postDataLength ));
+        conn.setUseCaches( false );
+        try( DataOutputStream wr = new DataOutputStream( conn.getOutputStream())) {
+            wr.write( postData );
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         InputStream in = new BufferedInputStream(conn.getInputStream());
         String result = IOUtils.toString(in, "UTF-8");
         JSONObject jsonObject = new JSONObject(result);
-
+        Log.d("test",result);
         /* tutaj sprawdzamy zawartosc json czy zalogowalo czy nie*/
 
     }

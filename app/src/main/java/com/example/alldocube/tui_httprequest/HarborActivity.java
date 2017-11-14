@@ -157,6 +157,7 @@ public class HarborActivity extends AppCompatActivity {
                             JSONObject JSONObject3 = (JSONObject) jsonObject2.get("excursion");
                             for(int j=0;j<(int)jsonObject2.get("count");j++) {
                                 JSONObject helper = (JSONObject)JSONObject3.get("a"+j);
+                                LinearLayout r = new LinearLayout(x);
                                 LinearLayout l = new LinearLayout(x);
                                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                                         LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
